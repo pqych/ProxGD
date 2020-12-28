@@ -1,30 +1,21 @@
 #include <iostream>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <random>
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include "ProxGD.h"
-#include <math.h>
 #include <assert.h>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <cfloat>
+#include <string>
 using namespace Eigen;
 using namespace std;
 
-class Objective
-{
-public:
-	Objective(string mode, MatrixXd A, MatrixXd b);
-	double f(MatrixXd x);
-	MatrixXd grad_f(MatrixXd x);
-	double Frob(MatrixXd x);
-	MatrixXd Frob_grad(MatrixXd x);
-	double Logistic(MatrixXd x);
-	MatrixXd Logistic_grad(MatrixXd x);
-	int check(MatrixXd x);
-
-private:
-	string mode;
-	MatrixXd A;
-	MatrixXd b;
-};
-
-Objective::Objective(string mode, MatrixXd A, MatrixXd b) : mode(mode), A(A), b(b){};
+Objective::Objective(string mode, MatrixXd A, MatrixXd b) :mode(mode), A(A), b(b) {};
 
 double Objective::f(MatrixXd x)
 {
@@ -57,7 +48,8 @@ MatrixXd Objective::grad_f(MatrixXd x)
 		cout << "Unknown mode!" << endl;
 		return 0 * x;
 	}
-};
+}
+;
 
 double Objective::Frob(MatrixXd x)
 {
@@ -95,3 +87,4 @@ int Objective::check(MatrixXd x)
 	}
 	return 0;
 }
+

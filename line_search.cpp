@@ -1,9 +1,17 @@
 #include <iostream>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <random>
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include "ProxGD.h"
 #include <assert.h>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <cfloat>
+#include <string>
 using namespace Eigen;
 using namespace std;
 

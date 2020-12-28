@@ -5,11 +5,15 @@
 #include <stdlib.h>
 #include <random>
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include "ProxGD.h"
 #include <assert.h>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <cfloat>
+#include <string>
 using namespace Eigen;
 using namespace std;
 
@@ -42,15 +46,18 @@ int main()
 
 	Eigen::MatrixXd A(m, n);
 	A.setRandom();
+
+	Eigen::MatrixXd exact_x(n, r);
+	exact_x.setRandom();
  
-	Eigen::MatrixXd b(m, r);
-	b.setRandom();
+	Eigen::MatrixXd b = A * exact_x;
 
 	Eigen::MatrixXd x0(n, r);
 	x0.setRandom();
-	// Initialize A£¬b£¬x0.
+	// Initialize A£¬b£¬x0, ecact_x.
 
-	Result res = ProxGD_one_step("Frob", "l_12", "BB", A, b, x0, 1e-2);
+	Result res = ProxGD_one_step("Frob", "L_1", "BB", A, b, x0, 1e-3);
+	res.add_exact_x(exact_x);
 	res.show();
 	// Calculate and show the result.
 
